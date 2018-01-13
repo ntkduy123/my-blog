@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:substituteby="layout/partials/aui-head"/>
+<body class="hold-transition skin-black-light sidebar-mini">
+
+<div class="wrapper">
+    <header th:substituteby="layout/partials/aui-header" />
+    <aside th:substituteby="layout/partials/aui-aside" />
+    <div>
+        <div th:substituteby="${templateName}"></div>
+    </div>
+</div>
+</body>
+</html>
