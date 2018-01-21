@@ -1,5 +1,6 @@
 package com.duynguyen.ntkduy.security;
 
+import com.duynguyen.ntkduy.utils.HttpUtil;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,8 +28,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader(HEADER_STRING);
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+        String header = HttpUtil.getCookie(req, "Authorization");
+        System.out.println(header);
+        if (header == null) {
             chain.doFilter(req, res);
             return;
         }
@@ -39,13 +41,14 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(req, res);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest req) {
+        String token = HttpUtil.getCookie(req, "Authorization");
+        System.out.print(token);
         if (token != null) {
             // parse the token.
             String user = Jwts.parser()
                     .setSigningKey(SECRET.getBytes())
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .parseClaimsJws(token)
                     .getBody()
                     .getSubject();
 

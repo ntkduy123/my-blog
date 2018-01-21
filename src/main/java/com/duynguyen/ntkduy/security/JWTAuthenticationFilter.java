@@ -5,6 +5,7 @@ import com.duynguyen.ntkduy.domain.ApplicationUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,18 +37,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res)
             throws AuthenticationException {
-        try {
-            ApplicationUser credential = new ObjectMapper()
-                    .readValue(req.getInputStream(), ApplicationUser.class);
-            return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            credential.getUsername(),
-                            credential.getPassword(),
-                            new ArrayList<>())
-            );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        ApplicationUser credential = new ApplicationUser();
+        credential.setUsername(username);
+        credential.setPassword(password);
+
+        return authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        credential.getUsername(),
+                        credential.getPassword(),
+                        new ArrayList<>())
+        );
     }
 
     @Override
@@ -60,5 +63,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
                 .compact();
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+
+        JSONObject json = new JSONObject();
+        json.put(HEADER_STRING, TOKEN_PREFIX + token);
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        res.getWriter().write(json.toJSONString());
     }
 }

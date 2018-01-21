@@ -40,6 +40,9 @@
 
         <div class="social-auth-links text-center">
             <p>- OR -</p>
+            <div style="cursor: pointer; height: 50px; width: 50px;" data-callback="signUpWithZalo" data-customize="true" class="zalo-follow-only-button btn btn-social-icon" data-oaid="2491302944280861639">
+                <img th:src="${staticURL + '/images/zalo.png'}"/>
+            </div>
             <a href="#" class="btn btn-social-icon btn-circle btn-facebook"><i class="fa fa-facebook"></i></a>
             <a href="#" class="btn btn-social-icon btn-circle btn-google"><i class="fa fa-google-plus"></i></a>
         </div>
@@ -51,5 +54,40 @@
 
     </div>
     <!-- /.form-box -->
+    <script>
+
+
+
+        function signUpWithZalo() {
+            Zalo.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    Zalo.api('/me',
+                        'GET',
+                        {
+                            fields: 'id,name,birthday,gender,picture'
+                        },
+                        function (response) {
+                            $.ajax({
+                                url: "/insert-zalo-user",
+                                data: JSON.stringify(response),
+                                type: "POST",
+                                contentType: "application/json",
+                                success: function(result, status, xhr) {
+                                    window.location.href = "/";
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log(error);
+                                }
+                            })
+                        }
+                    );
+                } else {
+                    Zalo.login();
+                }
+            });
+        }
+
+    </script>
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 </div>
 <!-- /.register-box -->
