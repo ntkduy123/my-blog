@@ -1,0 +1,99 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Blog widgets
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item active">Blog widgets</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="box">
+                    <figure class="img-hov-zoomin">
+                        <img src="../../../images/gallery/thumb/2.jpg" alt="..." />
+                    </figure>
+
+                    <div class="box-body">
+                        <h4><a href="#">Look at the sky</a></h4>
+                        <p><time>October 16, 2017</time></p>
+
+                        <p>Holisticly maximize team building ROI via next-generation resources. Enthusiastically promote team driven customer service and error-free solutions. Dynamically myocardinate vertical leadership for synergistic "outside the box" thinking. Efficiently extend global.</p>
+
+                        <div class="flexbox align-items-center mt-3">
+                            <a class="btn btn-round btn-bold btn-primary" href="#">Read more</a>
+
+                            <div class="gap-items-4">
+                                <a class="text-muted" href="#">
+                                    <i class="fa fa-heart mr-1"></i> 12
+                                </a>
+                                <a class="text-muted" href="#">
+                                    <i class="fa fa-comment mr-1"></i> 3
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="box">
+                    <figure class="img-hov-zoomin">
+                        <img src="../../../images/gallery/thumb/2.jpg" alt="..." />
+                    </figure>
+
+                    <div class="box-body">
+                        <h4><a href="#">Look at the sky</a></h4>
+                        <p><time>October 16, 2017</time></p>
+
+                        <p>Holisticly maximize team building ROI via next-generation resources. Enthusiastically promote team driven customer service and error-free solutions. Dynamically myocardinate vertical leadership for synergistic "outside the box" thinking. Efficiently extend global.</p>
+
+                        <div class="flexbox align-items-center mt-3">
+                            <a class="btn btn-round btn-bold btn-primary" href="#">Read more</a>
+
+                            <div class="gap-items-4">
+                                <a class="text-muted" href="#">
+                                    <i class="fa fa-heart mr-1"></i> 12
+                                </a>
+                                <a class="text-muted" href="#">
+                                    <i class="fa fa-comment mr-1"></i> 3
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+    <script>
+        Zalo.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                Zalo.api('/me',
+                    'GET',
+                    {
+                        fields: 'id,name'
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+            else {
+                console.log(response);
+            }
+        });
+    </script>
+</div>
+<!-- /.content-wrapper -->

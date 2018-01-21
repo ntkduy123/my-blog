@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:substituteby="layout/partials/aui-head"/>
+<body class="hold-transition skin-black-light sidebar-mini">
+
+<div class="wrapper">
+    <header th:substituteby="layout/partials/aui-header" />
+    <aside th:substituteby="layout/partials/aui-aside" />
+    <div>
+        <div th:substituteby="${templateName}"></div>
+    </div>
+    <!--<div class="zalo-chat-widget" data-oaid="2491302944280861639" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="350" data-height="420"></div>-->
+
+    <!--<script src="https://sp.zalo.me/plugins/sdk.js"></script>-->
+    <!--<script>-->
+        <!--$(".zalo-chat-widget").on('sendmsg', function () {-->
+            <!--console.log('dsda');-->
+        <!--});-->
+    <!--</script>-->
+</div>
+</body>
+</html>
